@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-success text-white py-3 text-center">
+                    <h3 class="fw-bold mb-0"><i class="bi bi-camera-fill me-2"></i>Report Garbage</h3>
+                    <p class="small mb-0 opacity-75">Mark the spot on the map and upload a photo</p>
+                </div>
+
+                <div class="card-body p-4">
+                    <form method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-7 border-end">
+                                <label class="form-label fw-bold text-success"><i class="bi bi-geo-alt-fill me-1"></i> 1. Select Location</label>
+                                <div id="map" class="rounded-3 shadow-sm border mb-3" style="height: 400px; width: 100%;"></div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-secondary">Verified Address:</label>
+                                    <textarea id="address" name="address" class="form-control bg-light" rows="2" readonly required placeholder="Click on the map to fetch address..."></textarea>
+                                </div>
+                                
+                                <input type="hidden" id="lat" name="lat">
+                                <input type="hidden" id="lng" name="lng">
+                            </div>
+
+                            <div class="col-md-5 ps-md-4">
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold text-success"><i class="bi bi-image me-1"></i> 2. Upload Proof</label>
+                                    <div class="border rounded-3 p-4 text-center bg-light" style="border: 2px dashed #198754 !important;">
+                                        <i class="bi bi-cloud-arrow-up fs-1 text-success"></i>
+                                        <input type="file" name="image" class="form-control mt-2" id="imageInput" accept="image/*" required>
+                                        <div id="imagePreview" class="mt-3 d-none">
+                                            <img src="#" alt="Preview" class="img-fluid rounded shadow-sm" style="max-height: 150px;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-warning py-2 small border-0 shadow-sm">
+                                    <i class="bi bi-info-circle-fill me-1"></i> Reports are automatically assigned to the nearest field worker.
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-lg w-100 py-3 fw-bold shadow-sm">
+                                    <i class="bi bi-send-check-fill me-2"></i> Submit Report
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    // Initialize Leaflet Map
+    var map = L.map('map').setView([20.5937, 78.9629], 5); // Centered on India
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+
+    var marker;
+
+    function setLocationData(lat, lng) {
+        document.getElementById('lat').value = lat;
+        document.getElementById('lng').value = lng;
+        
+        if (marker) map.removeLayer(marker);
+        marker = L.marker([lat, lng]).addTo(map);
+
+        // Fetch Address using OpenStreetMap API
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('address').value = data.display_name || "Location found, address unavailable.";
+            });
+    }
+
+    // Auto-detect User's Current GPS
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+            const {latitude, longitude} = pos.coords;
+            map.setView([latitude, longitude], 15);
+            setLocationData(latitude, longitude);
+        });
+    }
+
+    // Map Click Listener
+    map.on('click', e => setLocationData(e.latlng.lat, e.latlng.lng));
+
+    // Instant Image Preview
+    document.getElementById('imageInput').onchange = function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                const preview = document.getElementById('imagePreview');
+                preview.classList.remove('d-none');
+                preview.querySelector('img').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+{% endblock %}

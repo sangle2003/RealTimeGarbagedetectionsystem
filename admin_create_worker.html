@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h2 class="text-success">Create Worker</h2>
+        <p>Admin can create new workers here</p>
+    </div>
+
+    <div class="card p-4 shadow col-md-5 mx-auto">
+        <form method="POST">
+
+            <label>Worker ID</label>
+            <input type="text" name="workerId" class="form-control mb-3" required>
+
+            <label>Password</label>
+            <input type="password" name="password" class="form-control mb-3" required>
+
+            <button class="btn btn-success w-100">
+                Create Worker
+            </button>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}

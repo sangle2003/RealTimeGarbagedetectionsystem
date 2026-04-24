@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <div>
+            <h2 class="text-dark fw-bold"><i class="bi bi-speedometer2 me-2 text-primary"></i>Admin Control Panel</h2>
+            <p class="text-muted mb-0">Monitor and manage the Smart Garbage System</p>
+        </div>
+        <div class="text-end">
+            <span class="badge bg-dark px-3 py-2 rounded-pill shadow-sm">
+                <i class="bi bi-person-circle me-1"></i> Admin: {{ session['admin'] }}
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 rounded-4 h-100 border-start border-primary border-5">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-circle me-3">
+                        <i class="bi bi-people-fill fs-3"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-0">{{ total_users }}</h4>
+                        <small class="text-muted text-uppercase small fw-bold">Citizens</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 rounded-4 h-100 border-start border-warning border-5">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-warning bg-opacity-10 text-warning p-3 rounded-circle me-3">
+                        <i class="bi bi-file-earmark-text-fill fs-3"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-0">{{ total_reports }}</h4>
+                        <small class="text-muted text-uppercase small fw-bold">Total Reports</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 rounded-4 h-100 border-start border-danger border-5">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-danger bg-opacity-10 text-danger p-3 rounded-circle me-3">
+                        <i class="bi bi-exclamation-triangle-fill fs-3"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-0">{{ total_pending }}</h4>
+                        <small class="text-muted text-uppercase small fw-bold">Pending</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 rounded-4 h-100 border-start border-success border-5">
+                <div class="card-body d-flex align-items-center">
+                    <div class="bg-success bg-opacity-10 text-success p-3 rounded-circle me-3">
+                        <i class="bi bi-check-circle-fill fs-3"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-0">{{ total_completed }}</h4>
+                        <small class="text-muted text-uppercase small fw-bold">Completed</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-4 p-4">
+                <h5 class="fw-bold mb-4"><i class="bi bi-grid-fill me-2 text-secondary"></i>Management Tools</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <a href="/view-reports" class="btn btn-outline-primary btn-lg w-100 py-3 text-start shadow-sm">
+                            <i class="bi bi-clipboard-check me-2"></i> Manage All Reports
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="/detection-logs" class="btn btn-outline-dark btn-lg w-100 py-3 text-start shadow-sm">
+                            <i class="bi bi-camera-video me-2"></i> Live Camera Logs
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="/create-worker" class="btn btn-outline-success btn-lg w-100 py-3 text-start shadow-sm">
+                            <i class="bi bi-person-plus-fill me-2"></i> Register New Worker
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="/view-map" class="btn btn-outline-info btn-lg w-100 py-3 text-start shadow-sm">
+                            <i class="bi bi-map-fill me-2"></i> View Garbage Map
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="/admin/create-worker" class="btn btn-primary mt-3">
+            <i class="bi bi-person-plus-fill me-2"></i> Create Worker
+        </a>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 rounded-4 p-4 bg-light">
+                <h5 class="fw-bold mb-3"><i class="bi bi-cpu-fill me-2"></i>System Status</h5>
+                <ul class="list-group list-group-flush bg-transparent">
+                    <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center px-0">
+                        <span><i class="bi bi-database-check me-2 text-success"></i>Database</span>
+                        <span class="badge bg-success">Online</span>
+                    </li>
+                    <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center px-0">
+                        <span><i class="bi bi-robot me-2 text-success"></i>AI Model</span>
+                        <span class="badge bg-success">Ready</span>
+                    </li>
+                    <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center px-0 border-bottom-0">
+                        <span><i class="bi bi-broadcast me-2 text-primary"></i>Live Feed</span>
+                        <span class="badge bg-primary">Active</span>
+                    </li>
+                </ul>
+                <hr>
+                <a href="/logout" class="btn btn-danger w-100 py-2 fw-bold shadow-sm mt-2">
+                    <i class="bi bi-box-arrow-right me-2"></i>Logout Admin
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+{% endblock %}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel = "icon" href = "" type = "image">
+    <title>Real Time Garbage Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                        url("https://images.unsplash.com/photo-1506744038136-46273834b3fb");
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 25px;
+            margin: 15px;
+            border-radius: 10px;
+            width: 200px;
+            font-size: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 18px;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .admin-btn {
+            background-color: #dc3545;
+        }
+
+        .admin-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Real Time Garbage Detection System</h1>
+
+    <div>
+        <a href="/register" class="btn">Register</a>
+        <a href="/login/user" class="btn">User Login</a>
+        <a href="/login/worker" class="btn">Worker Login</a>
+        <a href="/login/admin" class="btn admin-btn">Admin Login</a>
+    </div>
+
+    <div class="stats">
+        <h2>System Statistics</h2>
+
+        <div class="stat-card">
+            <h3>Total Reports</h3>
+            <p>{{ total_reports }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Pending Reports</h3>
+            <p>{{ total_pending }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Completed Reports</h3>
+            <p>{{ total_completed }}</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h2 class="display-6 text-success fw-bold">📜 AI Detection Logs</h2>
+    <p class="text-muted">History of garbage detected automatically by the YOLO camera system.</p>
+</div>
+
+<div class="row">
+    {% for log in logs %}
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-header bg-white border-bottom-0 pt-3 pb-0">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted fw-bold"><small>🕒 {{ log.get('timestamp', 'Unknown Time') }}</small></span>
+                    <span class="badge bg-danger fs-6">Items Count: {{ log.get('garbage_count', 0) }}</span>
+                </div>
+            </div>
+            <div class="card-body text-center">
+                {% if log.get('image') %}
+                <img src="/uploads/{{ log.get('image') }}" class="img-fluid rounded border shadow-sm" alt="Detection Snapshot" style="max-height: 220px; width: 100%; object-fit: cover;">
+                {% else %}
+                <div class="p-5 bg-light text-muted border rounded">No Image Captured</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12 text-center">
+        <div class="alert alert-light border p-5">
+            <h4 class="text-muted">No detection logs found yet.</h4>
+            <p>Start the Live Detection camera to capture and log garbage automatically!</p>
+            <a href="/live-detection" class="btn btn-success mt-2">Go to Live Camera</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="text-center mt-4 mb-5">
+    <a href="/dashboard/worker" class="btn btn-outline-secondary px-4">⬅ Back to Dashboard</a>
+</div>
+{% endblock %}

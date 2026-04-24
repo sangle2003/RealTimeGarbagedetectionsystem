@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h2 class="display-6 text-success fw-bold">Worker Dashboard</h2>
+    <p class="text-muted">Manage your tasks and view live detections.</p>
+</div>
+
+<div class="row text-center mb-4">
+    <div class="col-md-3">
+        <div class="card shadow-sm border-success mb-3">
+            <div class="card-body">
+                <h2 class="text-success fw-bold">{{ completed_count }}</h2>
+                <h6 class="text-muted">Your Completed Tasks</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm border-warning mb-3">
+            <div class="card-body">
+                <h2 class="text-warning fw-bold">{{ total_pending }}</h2>
+                <h6 class="text-muted">Total Pending Reports</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm border-info mb-3">
+            <div class="card-body">
+                <h2 class="text-info fw-bold">{{ total_completed }}</h2>
+                <h6 class="text-muted">City Completed Reports</h6>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow-sm border-primary mb-3">
+            <div class="card-body">
+                <h2 class="text-primary fw-bold">{{ total_reports }}</h2>
+                <h6 class="text-muted">Total City Reports</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0 p-4 text-center">
+            <h4 class="mb-4">Quick Actions</h4>
+
+            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                
+                <a href="/view-reports" class="btn btn-outline-primary btn-lg">
+                    📋 View Reports
+                </a>
+
+                <!-- ✅ ONLY ONE OPTION ठेवला -->
+                <a href="/live-detection" class="btn btn-success btn-lg">
+                    🎥 Live Detection
+                </a>
+
+            </div>
+
+            <div class="mt-4">
+                <a href="/logout" class="btn btn-danger px-4">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

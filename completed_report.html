@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="text-center text-success">✅ Completed Reports</h2>
+
+<div class="container mt-4">
+
+{% for report in reports %}
+
+<div class="card p-3 mb-3 shadow">
+
+    <p><b>Address:</b> {{ report.address }}</p>
+    <p><b>Status:</b> <span class="text-success">{{ report.status }}</span></p>
+
+    <img src="/uploads/{{ report.image }}" width="200">
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

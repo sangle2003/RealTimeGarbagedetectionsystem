@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 text-center">
+
+        <h2 class="display-6 text-success fw-bold mb-3">
+            Welcome, Citizen!
+        </h2>
+
+        <p class="text-muted fs-5 mb-4">
+            Help us keep the city clean by reporting garbage in your area.
+        </p>
+
+        <div class="card shadow-sm border-0 p-4 mb-4">
+            <div class="card-body">
+
+                <h4 class="card-title text-dark mb-3">
+                    Actions
+                </h4>
+
+                <!-- ✅ REPORT BUTTON -->
+                <a href="/report-garbage" class="btn btn-success btn-lg w-50 mb-3">
+                    📸 Report Garbage
+                </a>
+
+                <br>
+
+                <!-- ✅ LIVE DETECTION BUTTON -->
+                <a href="/live-detection" class="btn btn-primary btn-lg w-50">
+                    🎥 Live Detection
+                </a>
+
+            </div>
+        </div>
+
+        <!-- LOGOUT -->
+        <a href="/logout" class="btn btn-outline-danger px-4 mt-3">
+            Logout
+        </a>
+
+    </div>
+</div>
+{% endblock %}
